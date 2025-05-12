@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>রক্তদাতার তালিকা</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #d1f2eb, #a9dfbf);
+      padding: 20px;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      /* border-radius: 15px; */
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #27ae60;
+      margin-bottom: 20px;
+    }
+
+    /* Flexbox for side-by-side items */
+    .item-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px; /* Adding gap between items */
+      justify-content: center;
+    }
+
+    .item {
+      background: #f7f7f7;
+      padding: 12px;
+      width: calc(33.333% - 20px); /* 3 items in a row with some gap */
+      border-radius: 10px;
+      border-left: 5px solid #27ae60;
+      box-sizing: border-box; /* To include padding and border in width calculation */
+    }
+
+    a {
+      display: block;
+      text-align: center;
+      margin-bottom: 15px;
+      font-weight: bold;
+      color: #2c3e50;
+      text-decoration: none;
+    }
+
+    @media (max-width: 768px) {
+      .item {
+        width: calc(50% - 20px); /* 2 items per row on smaller screens */
+      }
+    }
+
+    @media (max-width: 480px) {
+      .item {
+        width: 100%; /* 1 item per row on mobile screens */
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <a href="form.html">🔙 নতুন রক্তদাতা যোগ করুন</a>
+    <h2>📋 রক্তদাতার তালিকা</h2>
+    <div class="item-container" id="bloodList"></div>
+  </div>
+
+  <script>
+    const container = document.getElementById('bloodList');
+    const data = JSON.parse(localStorage.getItem('bloodData')) || [];
+
+    if (data.length === 0) {
+      container.innerHTML = "<p style='text-align:center;'>🚫 কোনো তথ্য পাওয়া যায়নি।</p>";
+    } else {
+      data.forEach(entry => {
+        const div = document.createElement('div');
+        div.className = 'item';
+        div.innerHTML = `<strong>👤 ${entry.name}</strong><br>📞 ${entry.phone} | 🩸 ${entry.group}`;
+        container.appendChild(div);
+      });
+    }
+  </script>
+
+</body>
+</html>

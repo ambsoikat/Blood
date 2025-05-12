@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>রক্তদাতা ফর্ম</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #e09ba6, #ffdcdc);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .form-container {
+      background: #ffffff;
+      padding: 30px;
+      /* border-radius: 15px; */
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 400px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #c0392b;
+      margin-bottom: 20px;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #e11d07;
+      color: white;
+      border: none;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #c0392b;
+    }
+
+    a {
+      text-align: center;
+      display: block;
+      margin-top: 15px;
+      text-decoration: none;
+      color: #555;
+      font-weight: bold;
+    }
+
+    a:hover {
+      color: #c0392b;
+    }
+
+    /* "Designed by Amb Soikat" style */
+    .footer {
+      text-align: center;
+      font-size: 14px;
+      color: #555;
+      margin-top: 20px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h2>🩸 রক্তদাতা রেজিস্ট্রেশন</h2>
+    <form id="bloodForm">
+      <input type="text" id="name" placeholder="👤 নাম লিখুন" required />
+      <input type="tel" id="phone" placeholder="📞 মোবাইল নম্বর লিখুন" pattern="[0-9]{11}" required />
+      <select id="bloodGroup" required>
+        <option value="">🩸 রক্তের গ্রুপ নির্বাচন করুন</option>
+        <option value="A+">A+</option>
+        <option value="A-">A-</option>
+        <option value="B+">B+</option>
+        <option value="B-">B-</option>
+        <option value="O+">O+</option>
+        <option value="O-">O-</option>
+        <option value="AB+">AB+</option>
+        <option value="AB-">AB-</option>
+      </select>
+      <button type="submit">✅ জমা দিন</button>
+    </form>
+    <a href="list.html">📋 জমাকৃত তালিকা দেখুন</a>
+
+    <!-- "Designed by Amb Soikat" text -->
+    <div class="footer">
+      Designed by <strong>Amb Soikat.</strong>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('bloodForm');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const phone = document.getElementById('phone').value;
+      const group = document.getElementById('bloodGroup').value;
+
+      const entry = { name, phone, group };
+      let data = JSON.parse(localStorage.getItem('bloodData')) || [];
+      data.push(entry);
+      localStorage.setItem('bloodData', JSON.stringify(data));
+
+      alert("✅ তথ্য সফলভাবে জমা হয়েছে!");
+      form.reset();
+    });
+  </script>
+
+</body>
+</html>
